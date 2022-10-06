@@ -1,0 +1,73 @@
+Avis3: AstroSat Visibility tool version 3.2
+
+This directory contains a Python script Avis3.2.py written to
+estimate the duration of visibility of a celestial source
+from the Indian Astronomy satellite Astrosat. This may be
+used as a tool to accompany the Astrosat Proposal Processing
+System (APPS), or to aid reviews and scheduling.
+
+Avis3 uses NORAD two-line element format for orbital elements 
+and sgp4 propagation for the satellite orbit. 
+
+Constraints accounted for Avis3 include Sun angle w.r.t. positive 
+and negative roll, Moon angle, Earth Limb angle and Ram angle.  
+A simple trapezoidal SAA model is introduced, as per the mission 
+specification. The code computes visibility for three different cases: 
+(1) complete non-occult non-SAA visibility duration, appropriate 
+    for LAXPC and CZTI instruments, 
+(2) only night time visibility, appropriate for SXT, and 
+(3) night-time visibility with reduction for instrument
+    set-up duration, appropriate for UVIT. 
+
+To run the script, one needs to have basic python installed. The
+script uses "os" and "math" modules that normally come with any
+python installation. Use the command "python Avis3.2.py" to run.
+The code is compatible with both python 2.7 and python 3.x
+
+The following files must be present in the working directory:
+
+1. Avis3.2.py         (main python script)
+2. sourcelist.txt : a text file containing the names and J2000
+                    coordinates of the targets to be observed.
+                    Format is one source per line,
+                    SourceName (containing no spaces), RA2000
+                    and Dec2000 separated by whitespace.  The 
+                    coordinates may be specified in decimal degrees
+                    or colon-separated hh:mm:ss  deg:min:sec format.
+                    A sample sourcelist.txt file is included with 
+                    the release.
+4. Avis3_config.txt Used to set the values of the operating
+                    parameters such as the various avoidance angles,
+                    the start date of visibility calculation, the
+                    span and the interval.  If this file is not present
+                    then values hardcoded in the script are used. However
+                    in the presence of this file values in the file 
+                    take precedence. A sample file is included with the 
+                    release.
+5. sgp4 directory   containing all utilities for handling TLE data
+                    and sgp4 propagation
+6. Astrosat.tle     Two-Line Element file for Astrosat.  The most recent 
+                    available TLE should be used.  You may download recent
+                    TLE files from 
+   http://astrosat-ssc.iucaa.in/uploads/orbital_elements/AS1_orbital_elements.tar
+
+The various coordinates here are computed with an accuracy of arcminutes.
+This is good enough to estimate the net visibility duration to typically
+about 1% accuracy.
+
+A text file output for each source is created, containing a table of 
+visibility duration per orbit as a function of time. 
+
+A companion script "plotdailyvis" is provided which uses all the visibility
+text files (*_avis.txt) present in the directory and generates a postscript
+file of a stack of plots of visibility duration per day.  Once the visibility
+text files are produced, one should run this script as
+
+./plotdailyvis
+
+which will generate a file called dailyvis.ps with all the plots.  This script
+uses gnuplot, so the gnuplot executable should be available in the regular path.
+ 
+Questions, comments, bug reports and suggestions for improvements may 
+be directed to Dipankar Bhattacharya (dipankar@iucaa.in)
+

@@ -1,0 +1,16 @@
+StartDate       04 06 2021
+StartUT         00 00 0.0
+SpanDays	30
+SecInterval     60
+SAAlatRef       -6.0
+SAAlongMin      -110.0
+SAAlongMax      0.0
+SAAslopeLeft    3.5
+SAAslopeRight   0.0
+SunAvoid         65.0
+MoonAvoid        15.0
+LimbAvoid        12.0
+RamAvoid         12.0
+NegRollSunAvoid  30.0
+PrintOrb        0
+PrintVis        1
